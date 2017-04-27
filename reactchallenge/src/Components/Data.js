@@ -1,53 +1,67 @@
-import React from 'react'
+import React from 'react';
+
+const styles = {
+  footer: {
+    backgroundColor: '#F5F5F5',
+    width: '100%',
+  },
+  card: {
+    display: 'inline',
+    width: '50%',
+  },
+  cardcontent: {
+    textAlign: 'center',
+  },
+};
 
 class Data extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
-      results: []
-    }
+      results: [],
+    };
   }
 
   componentDidMount() {
-
-    fetch("http://swapi.co/api/films")
-    .then(response => response.json())
-    .then(data => {
+    fetch('http://swapi.co/api/films')
+      .then(response => response.json())
+      .then((data) => {
         console.log(data.results);
         this.setState({
-          results: data.results
+          results: data.results,
         });
-    })
-    .catch(err => console.error(err))
-
+      })
+    .catch(err => console.log(err));
   }
 
   render() {
-
     return (
       <div>
 
         {
-          this.state.results.map((result) => {
-            return (
-              <div key={result.episode_id} className="tile is-parent">
-                <article className="tile is-child notification is-info">
-                  <div className="content">
-                    <p className="title">{result.title}</p>
-                    <p className="director">Director: {result.director}</p>
-                    <p className="episode">Episode: {result.episode_id}</p>
-                  </div>
-                </article>
+          this.state.results.map(result => (
+            <div key={result.episode_id} className="card" style={styles.card}>
+              <div className="card-content" style={styles.cardcontent}>
+                <p className="title">{result.title}</p>
+                <p className="director">Director: {result.director}</p>
+                <p className="episode">Episode: {result.episode_id}</p>
               </div>
-            )
-          })
+              <footer className="card-footer" style={styles.footer}>
+                <p className="card-footer-item"><a className="button is-primary">Edit</a></p>
+                <p className="card-footer-item"><a className="button is-primary">Delete</a></p>
+              </footer>
+              <br />
+              <br />
+              <br />
+            </div>
+            ),
+          )
         }
 
       </div>
-    )
-
+    );
   }
 
 }
 
-export default Data
+export default Data;
