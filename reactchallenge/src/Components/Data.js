@@ -26,7 +26,6 @@ class Data extends React.Component {
     fetch('http://swapi.co/api/films')
       .then(response => response.json())
       .then((data) => {
-        console.log(data.results);
         this.setState({
           results: data.results,
         });
